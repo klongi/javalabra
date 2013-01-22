@@ -1,3 +1,5 @@
 Tuntikirjanpito		
 
 Ti 15.01.2013	2h	Aiheen valitseminen ja github-repositorion luominen.
+La 19.01.2013	5h	Timanttien piirtäminen, pelin sovelluslogiikan aloittaminen
+Ma 22.01.2013	5h	Pelin logiikan jatkoa, testien tekeminen, alustavan luokkakaavion piirtäminen
