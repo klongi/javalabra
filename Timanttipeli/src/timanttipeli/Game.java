@@ -16,6 +16,7 @@ public class Game extends Timer {
     private Diamonds diamonds;
     private DrawArea area;
     private boolean clicked;
+    private Player player;
     
     public Game() {
         super(1000, null);
@@ -39,9 +40,12 @@ public class Game extends Timer {
     }
     public void GameLoop() {
         while (true) {
-            if(clicked) {
+            this.stop();
+            //area.repaint();
+            if(this.clicked) {
                 area.repaint();
                 this.clicked = false;
+                this.start();
             }
             
         }

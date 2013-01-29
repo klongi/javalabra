@@ -32,8 +32,9 @@ public class Listener implements MouseListener {
         System.out.println(y);
         System.out.println((y-30)/41);
         System.out.println("here");
-        game.getDiamonds().destroyDiamond((y-30)/41, x/41);
         game.setClicked(true);
+        game.getDiamonds().destroyDiamond((y-30)/41, x/41);
+        
     }
 
 
