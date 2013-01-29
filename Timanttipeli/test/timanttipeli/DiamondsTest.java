@@ -41,9 +41,6 @@ public class DiamondsTest {
     @After
     public void tearDown() {
     }
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
     
     @Test
     public void twoDiamondsAreSameColor(){
@@ -51,6 +48,22 @@ public class DiamondsTest {
         diamonds.setColor(0, 1, 1);
         
         assertEquals(true, diamonds.isSameColor(0, 1, Color.red));        
+    }
+    
+    @Test
+    public void switchesCorrectly() {
+        Diamonds diamonds = new Diamonds(3,3);
+        Color color = diamonds.getColor(1, 1);
+        diamonds.switchPlaces(1, 1, 1, 2);
+        assertEquals(color, diamonds.getColor(1, 2));
+    }
+    
+    @Test
+    public void doesntSwitchWhenNotNextToEachOther() {
+        Diamonds diamonds = new Diamonds(3,3);
+        Color color = diamonds.getColor(0, 0);
+        diamonds.switchPlaces(0, 0, 2, 2);
+        assertEquals(color, diamonds.getColor(0, 0));
     }
     
     @Test
@@ -123,24 +136,24 @@ public class DiamondsTest {
             assertEquals(Color.red, diamonds.getColor(2, j));
         }
      }
-     
+                                                                                           
      /*
       * destroyDiamonds ei toistaiseksi toimi oikein
       */
      
-//     @Test
-//     public void replacedWithRightColorWhen3DiamondsDestroyedOnSameColumn(){
-//         Diamonds diamonds = new Diamonds(7,7);
-//         for (int i = 4; i < 7; i++) {
-//             diamonds.setColor(i, 0, 0);            
-//         }
-//         for (int i = 1; i < 4; i++) {
-//             diamonds.setColor(i, 0, 1);            
-//         }
-//         diamonds.destroyDiamonds(diamonds.countNeighboursWithSameColorOnSameColumn(5, 0));
-//         for (int i = 4; i < 7; i++){
-//            assertEquals(Color.red, diamonds.getColor(i, 0));
-//        }
-//     }
+     @Test
+     public void replacedWithRightColorWhen3DiamondsDestroyedOnSameColumn(){
+         Diamonds diamonds = new Diamonds(7,7);
+         for (int i = 4; i < 7; i++) {
+             diamonds.setColor(i, 0, 0);            
+         }
+         for (int i = 1; i < 4; i++) {
+             diamonds.setColor(i, 0, 1);            
+         }
+         diamonds.destroyDiamonds(diamonds.countNeighboursWithSameColorOnSameColumn(4, 0));
+         for (int i = 4; i < 7; i++){
+            assertEquals(Color.red, diamonds.getColor(i, 0));
+        }
+     }
 }
 

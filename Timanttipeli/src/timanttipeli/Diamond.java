@@ -9,7 +9,7 @@ import javax.swing.JPanel;
  *
  * @author Krista
  */
-public class Diamond extends JPanel {
+public class Diamond{
     private Color[] colors = {Color.blue, Color.red, Color.yellow, Color.green, Color.magenta};
     private Color color;
     
@@ -29,18 +29,22 @@ public class Diamond extends JPanel {
         }
     }
     
+    public void setColor(Color color){
+        this.color = color;
+    }
+    
     public Color getColor(){
         return this.color;
     }
     
-    @Override
-    public void paint(Graphics gfx){
-            this.paintBall(gfx);
-    }
-    
-    public void paintBall(Graphics gfx) {
-        gfx.setColor(this.color);
-        gfx.fill3DRect(2, 2, 35, 35, true);
+//    @Override
+//    public void paint(Graphics gfx){
+//            this.paintBall(gfx);
+//    }
+//    
+//    public void paintBall(Graphics gfx) {
+//        gfx.setColor(this.color);
+//        gfx.fill3DRect(2, 2, 35, 35, true);
 //        if (this.color == Color.blue)
 //            gfx.fillOval(2, 2, 35, 35);
 //        if (this.color == Color.red)
@@ -50,9 +54,9 @@ public class Diamond extends JPanel {
 //        if (this.color == Color.green)
 //            gfx.fillOval(2, 2, 35, 35);
 //        if (this.color == Color.magenta)
-//            gfx.fillRect(2, 2, 35, 35);
-        
-    }
+////            gfx.fillRect(2, 2, 35, 35);
+//        
+//    }
 
 }
 

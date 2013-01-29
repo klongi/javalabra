@@ -12,19 +12,11 @@ import javax.swing.JPanel;
  *
  * @author Krista
  */
-public class Diamonds extends JPanel {
+public class Diamonds{
     private Diamond[][] diamondGraph;
-    private JPanel gamearea;
     
     public Diamonds(int height, int width){
         diamondGraph = new Diamond[height][width];
-        
-        gamearea = new JPanel(new GridLayout(10, 10, 0, 0));
-        gamearea.setSize(400, 400);
-        gamearea.setPreferredSize(new Dimension(400, 400));
-        gamearea.setVisible(true);
-        gamearea.setBackground(Color.black);
-        
         initialiseDiamonds(-1);   
     }
 
@@ -32,50 +24,54 @@ public class Diamonds extends JPanel {
         for (int i = 0; i < diamondGraph.length; i++) {
             for (int j = 0; j < diamondGraph[0].length; j++) {
                 diamondGraph[i][j] = new Diamond(color);
-                diamondGraph[i][j].repaint();
-                gamearea.add(diamondGraph[i][j]);
             }         
         }
     }
     
-    public void setColor(int i, int j, int color){
-        diamondGraph[i][j].setColor(color);
+    public void setColor(int rownumber, int columnnumber, int color){
+        diamondGraph[rownumber][columnnumber].setColor(color);
     }
     
-    public Color getColor(int i, int j){
-        return diamondGraph[i][j].getColor();
+  /**
+   * Palauttaa parametrina annetuissa koordinaateissa olevan pallon värin
+   * @param rownumber
+   * @param columnnumber
+   * @return 
+   */
+    public Color getColor(int rownumber, int columnnumber){
+        return diamondGraph[rownumber][columnnumber].getColor();
     }
   
     /**
-     * Tarkistaa onko annetut koordinaatit pelialueella, ja sen jälkeen onko koordinaateissa sijaitsevan timantit väri sama kuin parametrina annettu väri
-     * @param i
-     * @param j
+     * Tarkistaa onko annetut koordinaatit pelialueella, ja sen jälkeen onko koordinaateissa sijaitsevan timantin väri sama kuin parametrina annettu väri
+     * @param rownumber
+     * @param columnnumber
      * @param color
      * @return 
      */
-    public boolean isSameColor(int i, int j, Color color){
-        if (j < diamondGraph[0].length && j >= 0 && i < diamondGraph.length && i >= 0 && diamondGraph[i][j] != null){
-            if (diamondGraph[i][j].getColor() == color)
+    public boolean isSameColor(int rownumber, int columnnumber, Color color){
+        if (columnnumber < diamondGraph[0].length && columnnumber >= 0 && rownumber < diamondGraph.length && rownumber >= 0 && diamondGraph[rownumber][columnnumber] != null){
+            if (diamondGraph[rownumber][columnnumber].getColor() == color)
                 return true;
         }
         return false;
     }
 
     /**
-     * Luo booleantaulukon, johon merkitään ne ruudut jotka on jo todettu samanvärisiksi
+     * Luo booleantaulukon, johon merkitään ne ruudut jotka on jo tarkistettu ja todettu samanvärisiksi
      * Luo ArrayListin johon lisätään samanväristen naapureiden koordinaatit samalla rivillä
      * Kutsuu rekursiivista metodia, joka laskee samassa sarakkeessa vieressä olevat samanväriset timantit
-     * @param i
-     * @param j
+     * @param rownumber
+     * @param columnnumber
      * @return 
      */
-    public ArrayList countNeighboursWithSameColorOnSameColumn(int i, int j){
+    public ArrayList countNeighboursWithSameColorOnSameColumn(int rownumber, int columnnumber){
         boolean[] checked = new boolean[diamondGraph.length];
         ArrayList<Coordinate> coordinatesOfSameColoredOnSameColumn = new ArrayList<Coordinate>();
-        Color color = diamondGraph[i][j].getColor();
-        foundSameColor(i, j, i, color, checked, coordinatesOfSameColoredOnSameColumn);
+        Color color = diamondGraph[rownumber][columnnumber].getColor();
+        foundSameColor(rownumber, columnnumber, rownumber, color, checked, coordinatesOfSameColoredOnSameColumn);
 
-        return recursiveNeighbourCheckOnSameColumn(i, j, color, checked, coordinatesOfSameColoredOnSameColumn);
+        return recursiveNeighbourCheckOnSameColumn(rownumber, columnnumber, color, checked, coordinatesOfSameColoredOnSameColumn);
     }
     
     private ArrayList recursiveNeighbourCheckOnSameColumn(int i, int j, Color color, boolean[] checked, ArrayList CoordinatesOfSameColoredOnSameColumn){
@@ -94,39 +90,39 @@ public class Diamonds extends JPanel {
      * Luo booleantaulukon, johon merkitään ne ruudut jotka on jo todettu samanvärisiksi
      * Luo ArrayListin johon lisätään samanväristen naapureiden koordinaatit samassa kolumnissa
      * Kutsuu rekursiivista metodia, joka laskee samassa sarakkeessa vieressä olevat samanväriset timantit
-     * @param i
-     * @param j
+     * @param rownumber
+     * @param columnnumber
      * @return 
      */
-    public ArrayList countNeighboursWithSameColorOnSameRow(int i, int j){
+    public ArrayList countNeighboursWithSameColorOnSameRow(int rownumber, int columnnumber){
         boolean[] checked = new boolean[diamondGraph[0].length];
         ArrayList<Coordinate> coordinatesOfSameColoredOnSameRow = new ArrayList<Coordinate>();
-        Color color = diamondGraph[i][j].getColor();
-        foundSameColor(i, j, j, color, checked, coordinatesOfSameColoredOnSameRow);
+        Color color = diamondGraph[rownumber][columnnumber].getColor();
+        foundSameColor(rownumber, columnnumber, columnnumber, color, checked, coordinatesOfSameColoredOnSameRow);
 
-        return recursiveNeighbourCheckOnSameRow(i, j, color, checked, coordinatesOfSameColoredOnSameRow);
+        return recursiveNeighbourCheckOnSameRow(rownumber, columnnumber, color, checked, coordinatesOfSameColoredOnSameRow);
     }
  
-     private ArrayList recursiveNeighbourCheckOnSameRow(int i, int j, Color color, boolean[] checked, ArrayList CoordinatesOfSameColoredOnSameRow){
-        if (isSameColor(i, j+1, color) && !checked[j+1]){
-            foundSameColor(i, j+1, j+1, color, checked, CoordinatesOfSameColoredOnSameRow);
-            recursiveNeighbourCheckOnSameRow(i, j+1, color, checked, CoordinatesOfSameColoredOnSameRow);
+     private ArrayList recursiveNeighbourCheckOnSameRow(int rownumber, int columnnumber, Color color, boolean[] checked, ArrayList CoordinatesOfSameColoredOnSameRow){
+        if (isSameColor(rownumber, columnnumber+1, color) && !checked[columnnumber+1]){
+            foundSameColor(rownumber, columnnumber+1, columnnumber+1, color, checked, CoordinatesOfSameColoredOnSameRow);
+            recursiveNeighbourCheckOnSameRow(rownumber, columnnumber+1, color, checked, CoordinatesOfSameColoredOnSameRow);
         }
-        if (isSameColor(i, j-1, color) && !checked[j-1]){
-            foundSameColor(i, j-1, j-1, color, checked, CoordinatesOfSameColoredOnSameRow);
-            recursiveNeighbourCheckOnSameRow(i, j-1, color, checked, CoordinatesOfSameColoredOnSameRow);         
+        if (isSameColor(rownumber, columnnumber-1, color) && !checked[columnnumber-1]){
+            foundSameColor(rownumber, columnnumber-1, columnnumber-1, color, checked, CoordinatesOfSameColoredOnSameRow);
+            recursiveNeighbourCheckOnSameRow(rownumber, columnnumber-1, color, checked, CoordinatesOfSameColoredOnSameRow);         
         } 
        
         return CoordinatesOfSameColoredOnSameRow;      
     }
-    
-   private void foundSameColor(int i, int j, int checkCoordinate, Color color, boolean[] checked, ArrayList NeighbourCoordinates){
+     
+   private void foundSameColor(int rownumber, int columnnumber, int checkCoordinate, Color color, boolean[] checked, ArrayList NeighbourCoordinates){
         checked[checkCoordinate] = true;
-        NeighbourCoordinates.add(new Coordinate(i,j));
+        NeighbourCoordinates.add(new Coordinate(rownumber,columnnumber));
     }
     
    /**
-    * *Tuhoaa annetuissa koordinaateissa olevan timantin, siirtää samassa sarakkeessa ylempänä olevia timantteja yhden alaspäin
+    * Tuhoaa annetuissa koordinaateissa olevan timantin, siirtää samassa sarakkeessa ylempänä olevia timantteja yhden alaspäin
     * ja luo ylimmäksi uuden timantin
     * @param rowNumber
     * @param columnNumber 
@@ -150,23 +146,45 @@ public class Diamonds extends JPanel {
          }
     }
     
-    public void update() {
-        for (int i = 0; i < diamondGraph.length; i++) {
-            for (int j = 0; j < diamondGraph[0].length; j++) {
-                diamondGraph[i][j].repaint();
-            }
+    public void switchPlaces(int rowNumber, int columnNumber, int newRowNumber, int newColumnNumber){
+        if (areNextToEachOther(rowNumber, columnNumber, newRowNumber, newColumnNumber)){
+            Color color = diamondGraph[rowNumber][columnNumber].getColor();
+            diamondGraph[rowNumber][columnNumber].setColor(diamondGraph[newRowNumber][newColumnNumber].getColor());
+            diamondGraph[newRowNumber][newColumnNumber].setColor(color);
         }
     }
     
-    public JPanel getGamearea() {
-        return this.gamearea;
+    private boolean areNextToEachOther(int rowNumber, int columnNumber, int otherRowNumber, int otherColumnNumber){
+        if (rowNumber == otherRowNumber && (columnNumber == otherColumnNumber -1 || columnNumber == otherColumnNumber +1)){
+            return true;
+        }
+        if (columnNumber == otherColumnNumber && (rowNumber == otherRowNumber + 1 || rowNumber == otherRowNumber -1)){
+            return true;
+        }
+        return false;
     }
     
-    public void paintDiamonds(){
-        for (int i = 0; i < diamondGraph.length; i++) {
-            for (int j = 0; j < diamondGraph[0].length; j++) {
-                diamondGraph[i][j].repaint();
-            }
-        }
+    public Diamond[][] getDiamondArray() {
+        return diamondGraph;
     }
+    
+//    public void update() {
+//        for (int i = 0; i < diamondGraph.length; i++) {
+//            for (int j = 0; j < diamondGraph[0].length; j++) {
+//                diamondGraph[i][j].repaint();
+//            }
+//        }
+//    }
+//    
+//    public JPanel getGamearea() {
+//        return this.gamearea;
+//    }
+//    
+//    public void paintDiamonds(){
+//        for (int i = 0; i < diamondGraph.length; i++) {
+//            for (int j = 0; j < diamondGraph[0].length; j++) {
+//                diamondGraph[i][j].repaint();
+//            }
+//        }
+//    }
 }
