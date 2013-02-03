@@ -14,6 +14,7 @@ import javax.swing.JPanel;
  */
 public class Diamonds{
     private Diamond[][] diamondGraph;
+    private Coordinate clickedCoordinate;
     
     public Diamonds(int height, int width){
         diamondGraph = new Diamond[height][width];
@@ -28,12 +29,54 @@ public class Diamonds{
         }
     }
     
+    public void clicked(Coordinate coordinate){
+        if (clickedCoordinate == null){
+            System.out.println("asetetaan clickedCoordinate");
+            clickedCoordinate = coordinate;
+        }
+        else {
+            System.out.println("ei ollut null");
+            if (areNextToEachOther(clickedCoordinate, coordinate)){
+                System.out.println("ovat vierekkäin");
+                switchPlaces(clickedCoordinate, coordinate);
+            }
+            clickedCoordinate = null; 
+        }
+    }
+    
+       /**
+     * Metodi vaihtaa kahden vierekkäisen timantin paikkaa taulukossa
+     * 
+     * @param rowNumber
+     * @param columnNumber
+     * @param newRowNumber
+     * @param newColumnNumber 
+     */
+    public void switchPlaces(Coordinate c1, Coordinate c2){
+            //Color color = diamondGraph[c1.getColumnNumber()][c1.getColumnNumber()].getColor();
+            //diamondGraph[c1.getRowNumber()][c1.getColumnNumber()].setColor(diamondGraph[c2.getRowNumber()][c2.getColumnNumber()].getColor());
+            //diamondGraph[c2.getRowNumber()][c2.getColumnNumber()].setColor(color);
+            Diamond tmp = diamondGraph[c1.getRowNumber()][c1.getColumnNumber()];
+            diamondGraph[c1.getRowNumber()][c1.getColumnNumber()] = diamondGraph[c2.getRowNumber()][c2.getColumnNumber()];;
+            diamondGraph[c2.getRowNumber()][c2.getColumnNumber()] = tmp;
+    }
+    
+    private boolean areNextToEachOther(Coordinate c1, Coordinate c2){
+        if (c1.getRowNumber() == c2.getRowNumber() && (c1.getColumnNumber() == c2.getColumnNumber() -1 || c1.getColumnNumber() == c2.getColumnNumber() +1)){
+            return true;
+        }
+        if (c1.getColumnNumber() == c2.getColumnNumber() && (c1.getRowNumber() == c2.getRowNumber() + 1 || c1.getRowNumber() == c2.getRowNumber() -1)){
+            return true;
+        }
+        return false;
+    }
+    
     public void setColor(int rownumber, int columnnumber, int color){
         diamondGraph[rownumber][columnnumber].setColor(color);
     }
     
   /**
-   * Palauttaa parametrina annetuissa koordinaateissa olevan pallon värin
+   * Metodi palauttaa parametrina annetuissa koordinaateissa olevan timantin värin
    * @param rownumber
    * @param columnnumber
    * @return 
@@ -43,7 +86,7 @@ public class Diamonds{
     }
   
     /**
-     * Tarkistaa onko annetut koordinaatit pelialueella, ja sen jälkeen onko koordinaateissa sijaitsevan timantin väri sama kuin parametrina annettu väri
+     * Metodi tarkistaa ovatko annetut koordinaatit pelialueella ja onko koordinaateissa sijaitsevan timantin väri sama kuin parametrina annettu väri.
      * @param rownumber
      * @param columnnumber
      * @param color
@@ -58,9 +101,12 @@ public class Diamonds{
     }
 
     /**
-     * Luo booleantaulukon, johon merkitään ne ruudut jotka on jo tarkistettu ja todettu samanvärisiksi
-     * Luo ArrayListin johon lisätään samanväristen naapureiden koordinaatit samalla rivillä
-     * Kutsuu rekursiivista metodia, joka laskee samassa sarakkeessa vieressä olevat samanväriset timantit
+     * Metodi laskee samassa sarakkeessa vieressä olevat samanväriset timantit
+     * 
+     * Luo booleantaulukon, johon merkitään ne ruudut jotka on jo tarkistettu ja todettu samanvärisiksi.
+     * Luo ArrayListin johon lisätään samanväristen naapureiden koordinaatit samassa sarakkeessa.
+     * Kutsuu rekursiivista metodia, joka laskee samassa sarakkeessa vieressä olevat samanväriset timantit.
+     * 
      * @param rownumber
      * @param columnnumber
      * @return 
@@ -87,9 +133,12 @@ public class Diamonds{
     }
   
     /**
-     * Luo booleantaulukon, johon merkitään ne ruudut jotka on jo todettu samanvärisiksi
-     * Luo ArrayListin johon lisätään samanväristen naapureiden koordinaatit samassa kolumnissa
-     * Kutsuu rekursiivista metodia, joka laskee samassa sarakkeessa vieressä olevat samanväriset timantit
+     * Laskee samalla rivillä vieressä olevien samanväristen timanttien määrän
+     * 
+     * Luo booleantaulukon, johon merkitään ne ruudut jotka on jo todettu samanvärisiksi.
+     * Luo ArrayListin johon lisätään samanväristen naapureiden koordinaatit samalla rivillä.
+     * Kutsuu rekursiivista metodia, joka laskee samalla rivillä vieressä olevat samanväriset timantit.
+     * 
      * @param rownumber
      * @param columnnumber
      * @return 
@@ -122,8 +171,11 @@ public class Diamonds{
     }
     
    /**
+    * Metodi tuhoaa yhden timantin
+    * 
     * Tuhoaa annetuissa koordinaateissa olevan timantin, siirtää samassa sarakkeessa ylempänä olevia timantteja yhden alaspäin
-    * ja luo ylimmäksi uuden timantin
+    * ja luo ylimmäksi uuden timantin.
+    * 
     * @param rowNumber
     * @param columnNumber 
     */
@@ -136,7 +188,7 @@ public class Diamonds{
     }
     
     /**
-     * Tuhoaa kaikki parametrina annetun koordinaattilistan koordinaateissa sijaitsevat timantit
+     * Metodi tuhoaa kaikki parametrina annetun koordinaattilistan koordinaateissa sijaitsevat timantit
      * @param CoordinateList 
      */
     public void destroyDiamonds(ArrayList<Coordinate> CoordinateList){
@@ -146,45 +198,8 @@ public class Diamonds{
          }
     }
     
-    public void switchPlaces(int rowNumber, int columnNumber, int newRowNumber, int newColumnNumber){
-        if (areNextToEachOther(rowNumber, columnNumber, newRowNumber, newColumnNumber)){
-            Color color = diamondGraph[rowNumber][columnNumber].getColor();
-            diamondGraph[rowNumber][columnNumber].setColor(diamondGraph[newRowNumber][newColumnNumber].getColor());
-            diamondGraph[newRowNumber][newColumnNumber].setColor(color);
-        }
-    }
-    
-    private boolean areNextToEachOther(int rowNumber, int columnNumber, int otherRowNumber, int otherColumnNumber){
-        if (rowNumber == otherRowNumber && (columnNumber == otherColumnNumber -1 || columnNumber == otherColumnNumber +1)){
-            return true;
-        }
-        if (columnNumber == otherColumnNumber && (rowNumber == otherRowNumber + 1 || rowNumber == otherRowNumber -1)){
-            return true;
-        }
-        return false;
-    }
     
     public Diamond[][] getDiamondArray() {
         return diamondGraph;
     }
-    
-//    public void update() {
-//        for (int i = 0; i < diamondGraph.length; i++) {
-//            for (int j = 0; j < diamondGraph[0].length; j++) {
-//                diamondGraph[i][j].repaint();
-//            }
-//        }
-//    }
-//    
-//    public JPanel getGamearea() {
-//        return this.gamearea;
-//    }
-//    
-//    public void paintDiamonds(){
-//        for (int i = 0; i < diamondGraph.length; i++) {
-//            for (int j = 0; j < diamondGraph[0].length; j++) {
-//                diamondGraph[i][j].repaint();
-//            }
-//        }
-//    }
 }

@@ -7,6 +7,7 @@ package kayttoliittyma;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JFrame;
+import timanttipeli.Coordinate;
 import timanttipeli.Game;
 
 /**
@@ -24,16 +25,10 @@ public class Listener implements MouseListener {
     
     @Override
     public void mouseClicked(MouseEvent event) {
-        System.out.println("Clicked");
         int x = (int) event.getX();
         int y = (int) event.getY();
-        System.out.println(x);
-        System.out.println(x/41);
-        System.out.println(y);
-        System.out.println((y-30)/41);
-        System.out.println("here");
+        game.getDiamonds().clicked(new Coordinate((y-30)/41, x/41));
         game.setClicked(true);
-        game.getDiamonds().destroyDiamond((y-30)/41, x/41);
         
     }
 

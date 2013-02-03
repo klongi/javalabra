@@ -1,10 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package timanttipeli;
 
-import java.awt.event.ActionListener;
 import javax.swing.Timer;
 import kayttoliittyma.DrawArea;
 
@@ -18,6 +13,9 @@ public class Game extends Timer {
     private boolean clicked;
     private Player player;
     
+    /**
+     * Konstruktori kutsuu yliluokan konstruktoria, sekä luo Diamondsin.
+     */
     public Game() {
         super(1000, null);
         diamonds = new Diamonds(10,10);
@@ -38,6 +36,10 @@ public class Game extends Timer {
     public void setClicked(boolean clicked) {
         this.clicked = clicked;
     }
+    
+    /**
+     * Metodi piirtää kaiken uudestaan, kun on tapahtunut muutoksia.
+     */
     public void GameLoop() {
         while (true) {
             this.stop();

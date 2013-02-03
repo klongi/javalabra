@@ -1,21 +1,12 @@
 package timanttipeli;
 
-
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-import timanttipeli.Diamonds;
 import java.awt.Color;
-import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -23,9 +14,11 @@ import static org.junit.Assert.*;
  */
 public class DiamondsTest {
     
+    Diamonds diamonds;
+    
     public DiamondsTest() {
     }
-    
+   
     @BeforeClass
     public static void setUpClass() {
     }
@@ -36,6 +29,7 @@ public class DiamondsTest {
     
     @Before
     public void setUp() {
+        diamonds = new Diamonds(7,7);
     }
     
     @After
@@ -44,31 +38,27 @@ public class DiamondsTest {
     
     @Test
     public void twoDiamondsAreSameColor(){
-        Diamonds diamonds = new Diamonds(2,2);
         diamonds.setColor(0, 1, 1);
-        
         assertEquals(true, diamonds.isSameColor(0, 1, Color.red));        
     }
     
     @Test
     public void switchesCorrectly() {
-        Diamonds diamonds = new Diamonds(3,3);
         Color color = diamonds.getColor(1, 1);
-        diamonds.switchPlaces(1, 1, 1, 2);
+        diamonds.switchPlaces(new Coordinate(1,1), new Coordinate(1,2));
         assertEquals(color, diamonds.getColor(1, 2));
     }
     
     @Test
     public void doesntSwitchWhenNotNextToEachOther() {
-        Diamonds diamonds = new Diamonds(3,3);
         Color color = diamonds.getColor(0, 0);
-        diamonds.switchPlaces(0, 0, 2, 2);
+        diamonds.switchPlaces(new Coordinate(0,0), new Coordinate(2,2));
         assertEquals(color, diamonds.getColor(0, 0));
     }
     
     @Test
     public void rightAmountOfNeighboursWhenAllSameColor() {
-         Diamonds diamonds = new Diamonds(6,6);
+         diamonds = new Diamonds(6,6);
          for (int i = 0; i < 6; i++) {
              for (int j = 0; j < 6; j++) {
                  diamonds.setColor(i, j, 0);
@@ -80,7 +70,6 @@ public class DiamondsTest {
      
      @Test
      public void rightAmountOfNeighboursOnSameRow(){
-         Diamonds diamonds = new Diamonds(7,7);
          for (int j = 3; j < 6; j++) {
              diamonds.setColor(2, j, 0);            
          }
@@ -92,7 +81,6 @@ public class DiamondsTest {
      
      @Test
      public void rightAmountOfNeighboursOnSameColumn(){
-         Diamonds diamonds = new Diamonds(7,7);
          for (int i = 3; i < 6; i++) {
              diamonds.setColor(i, 0, 0);            
          }
@@ -104,7 +92,6 @@ public class DiamondsTest {
      
      @Test
      public void replacedWithRightColorWhenDestroyed(){
-         Diamonds diamonds = new Diamonds(3,3);
          Color color = diamonds.getColor(0,1);
          diamonds.destroyDiamond(1, 1);
          
@@ -113,7 +100,6 @@ public class DiamondsTest {
      
      @Test
      public void newDiamondCreatedWhenOneDestroyed(){
-         Diamonds diamonds = new Diamonds(3,3);
          diamonds.destroyDiamond(1, 1);
          
          assertEquals(true, diamonds.getColor(0, 1)!=null);
@@ -121,7 +107,6 @@ public class DiamondsTest {
      
      @Test
      public void replacedWithRightColorWhen3DiamondsDestroyedOnSameRow(){
-         Diamonds diamonds = new Diamonds(7,7);
          for (int j = 3; j < 6; j++) {
              diamonds.setColor(2, j, 0);            
          }
@@ -137,13 +122,9 @@ public class DiamondsTest {
         }
      }
                                                                                            
-     /*
-      * destroyDiamonds ei toistaiseksi toimi oikein
-      */
-     
+
      @Test
      public void replacedWithRightColorWhen3DiamondsDestroyedOnSameColumn(){
-         Diamonds diamonds = new Diamonds(7,7);
          for (int i = 4; i < 7; i++) {
              diamonds.setColor(i, 0, 0);            
          }

@@ -37,6 +37,8 @@ public class DrawArea extends JPanel{
     @Override
     protected void paintComponent(Graphics gfx){
         super.paintComponent(gfx);
+        gfx.setColor(Color.BLACK);
+        gfx.fillRect(0, 0, 405, 405);
         Diamond[][] diamondGraph = timanttipeli.getDiamonds().getDiamondArray();
         for(int i = 0; i < diamondGraph.length; i++){
             for (int j = 0; j < diamondGraph[0].length; j++) {
