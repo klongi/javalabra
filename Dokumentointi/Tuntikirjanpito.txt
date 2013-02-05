@@ -6,3 +6,5 @@ Ma 22.01.2013	5h	Pelin logiikan jatkoa, testien tekeminen, alustavan luokkakaavi
 Ke 23.01.2013	2h	Käyttöliittymän kanssa leikkimistä
 Ma 28.01.2013	7h	Luokkarakenteen uusiminen, Timerin käyttöönotto, uusia metodeita
 Ti 29.01.2013	5h	Luokkakaavio, testejä, klikkaus poistaa nyt klikatun timantit
+Ma 04.02.2013	2h	Kun klikataan kahta vierekkäistä timanttia, ne vaihtavat paikkaa
+Ti 05.02.2013	5h	Sekvenssikaavioita, koodin editointia, testejä

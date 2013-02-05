@@ -39,15 +39,16 @@ public class CoordinateTest {
     }
     
     @Test
-    public void sortCoordinateList() {
+    public void coordinateListSortedCorrectly() {
         ArrayList<Coordinate> coordinates = new ArrayList<Coordinate>();
         coordinates.add(new Coordinate(4, 2));
         coordinates.add(new Coordinate(1, 4));
         coordinates.add(new Coordinate(3, 5));
+        coordinates.add(new Coordinate(4, 3));
 
         Collections.sort(coordinates);
 
-        assertEquals(true, coordinates.get(0).getColumnNumber() < coordinates.get(1).getColumnNumber());
-        assertEquals(true, coordinates.get(0).getColumnNumber() < coordinates.get(2).getColumnNumber());
+        assertEquals(1, coordinates.get(0).getRowNumber());
+        assertEquals(2, coordinates.get(2).getColumnNumber());
     }
 }

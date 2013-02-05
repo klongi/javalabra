@@ -27,7 +27,7 @@ public class Listener implements MouseListener {
     public void mouseClicked(MouseEvent event) {
         int x = (int) event.getX();
         int y = (int) event.getY();
-        game.getDiamonds().clicked(new Coordinate((y-30)/41, x/41));
+        game.clicked(new Coordinate((y-30)/41, x/41));
         game.setClicked(true);
         
     }

@@ -24,6 +24,11 @@ public class Coordinate implements Comparable<Coordinate> {
     }
     @Override
     public int compareTo(Coordinate c) {
-       return (this.columnNumber - c.getColumnNumber());    
+       if (this.rowNumber == c.rowNumber){
+            return (this.columnNumber - c.columnNumber);
+       }
+       else {
+           return this.rowNumber - c.rowNumber;
+       }
     }
 }

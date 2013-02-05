@@ -64,8 +64,8 @@ public class DiamondsTest {
                  diamonds.setColor(i, j, 0);
              }
          }          
-         assertEquals(6, diamonds.countNeighboursWithSameColorOnSameRow(3, 2).size());
-         assertEquals(6, diamonds.countNeighboursWithSameColorOnSameColumn(5, 1).size());
+         assertEquals(6, diamonds.countNeighboursWithSameColorOnSameRow(new Coordinate(2,3)).size());
+         assertEquals(6, diamonds.countNeighboursWithSameColorOnSameColumn(new Coordinate(5,1)).size());
      }
      
      @Test
@@ -76,7 +76,7 @@ public class DiamondsTest {
          diamonds.setColor(2, 2, 1);
          diamonds.setColor(2, 6, 1);
          
-         assertEquals(3, diamonds.countNeighboursWithSameColorOnSameRow(2, 4).size());
+         assertEquals(3, diamonds.countNeighboursWithSameColorOnSameRow(new Coordinate(2,4)).size());
      }
      
      @Test
@@ -87,7 +87,7 @@ public class DiamondsTest {
          diamonds.setColor(2, 0, 1);
          diamonds.setColor(6, 0, 1);
          
-         assertEquals(3, diamonds.countNeighboursWithSameColorOnSameColumn(5, 0).size());
+         assertEquals(3, diamonds.countNeighboursWithSameColorOnSameColumn(new Coordinate(5,0)).size());
      }
      
      @Test
@@ -116,7 +116,7 @@ public class DiamondsTest {
          diamonds.setColor(2, 2, 1);
          diamonds.setColor(2, 6, 1);
 
-        diamonds.destroyDiamonds(diamonds.countNeighboursWithSameColorOnSameRow(2, 4));
+        diamonds.destroyDiamonds(diamonds.countNeighboursWithSameColorOnSameRow(new Coordinate(2,4)));
         for (int j = 3; j < 6; j++){
             assertEquals(Color.red, diamonds.getColor(2, j));
         }
@@ -131,7 +131,7 @@ public class DiamondsTest {
          for (int i = 1; i < 4; i++) {
              diamonds.setColor(i, 0, 1);            
          }
-         diamonds.destroyDiamonds(diamonds.countNeighboursWithSameColorOnSameColumn(4, 0));
+         diamonds.destroyDiamonds(diamonds.countNeighboursWithSameColorOnSameColumn(new Coordinate (4,0)));
          for (int i = 4; i < 7; i++){
             assertEquals(Color.red, diamonds.getColor(i, 0));
         }
