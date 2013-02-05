@@ -1,13 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package kayttoliittyma;
 
-/**
- *
- * @author Krista
- */
+package kayttoliittyma;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,13 +9,17 @@ import javax.swing.JPanel;
 import timanttipeli.Diamond;
 import timanttipeli.Game;
 
+/**
+ *DrawArea extends JPanel
+ * 
+ * @author Krista
+ */
 
 public class DrawArea extends JPanel{
     private Game timanttipeli;
 
     public DrawArea(Game timanttipeli){
         this.timanttipeli = timanttipeli;
-        
         this.setLayout(new GridLayout(10, 10, 0, 0));
         this.setSize(450,450);
         this.setPreferredSize(new Dimension(405,405));

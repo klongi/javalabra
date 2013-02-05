@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
  */
 public class PlayerTest {
     
-    Player uusi = new Player("Pekka Pelaaja");
+    Player uusi;
     
     public PlayerTest() {
     }
@@ -32,6 +32,7 @@ public class PlayerTest {
     
     @Before
     public void setUp() {
+        uusi = new Player("Pekka Pelaaja");
     }
     
     @After

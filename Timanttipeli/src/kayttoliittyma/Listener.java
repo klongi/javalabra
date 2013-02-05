@@ -11,7 +11,8 @@ import timanttipeli.Coordinate;
 import timanttipeli.Game;
 
 /**
- *
+ *Listener implements MouseListener
+ * 
  * @author Krista
  */
 public class Listener implements MouseListener {
@@ -29,7 +30,6 @@ public class Listener implements MouseListener {
         int y = (int) event.getY();
         game.clicked(new Coordinate((y-30)/41, x/41));
         game.setClicked(true);
-        
     }
 
 

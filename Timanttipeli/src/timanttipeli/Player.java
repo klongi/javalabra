@@ -5,7 +5,8 @@
 package timanttipeli;
 
 /**
- *
+ * Pelaajaluokka pitää kirjaa pelaajan pisteistä
+ * 
  * @author Krista
  */
 public class Player {

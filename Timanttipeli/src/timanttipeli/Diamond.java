@@ -5,12 +5,13 @@ import java.awt.Color;
 
 /**
  * Timanttiluokka, joka määrittelee timantin värin
+ * 
  * @author Krista
  */
 public class Diamond{
     
     /**
-     * Taulukko, joka sisältää pelissä käytetyt värit
+     * colors -taulukko sisältää pelissä käytetyt värit
      */
     private Color[] colors = {Color.blue, Color.red, Color.yellow, Color.green, Color.magenta};
     private Color color;

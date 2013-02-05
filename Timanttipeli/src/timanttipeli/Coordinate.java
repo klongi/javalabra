@@ -1,7 +1,8 @@
 package timanttipeli;
 
 /**
- *
+ *Coordinate kertoo timantin sijainnin kaksiulotteisessa taulukossa
+ * 
  * @author Krista
  */
 
