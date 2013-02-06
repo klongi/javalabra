@@ -43,10 +43,16 @@ public class DiamondsTest {
     }
     
     @Test
-    public void switchesCorrectly() {
-        Color color = diamonds.getColor(1, 1);
-        diamonds.switchPlaces(new Coordinate(1,1), new Coordinate(1,2));
-        assertEquals(color, diamonds.getColor(1, 2));
+    public void twoDiamondsAreNextToEachOther(){
+        assertEquals(true, diamonds.areNextToEachOther(new Coordinate(1,1), new Coordinate(0,1)));
+        assertEquals(true, diamonds.areNextToEachOther(new Coordinate(1,1), new Coordinate(1,0)));
+        assertEquals(true, diamonds.areNextToEachOther(new Coordinate(1,1), new Coordinate(2,1)));
+        assertEquals(true, diamonds.areNextToEachOther(new Coordinate(1,1), new Coordinate(1,2)));
+    }
+    
+    @Test
+    public void twoDiamondsNotNextToEachOther(){
+        assertEquals(false, diamonds.areNextToEachOther(new Coordinate(1,1), new Coordinate(2,2)));
     }
     
     @Test
@@ -105,23 +111,23 @@ public class DiamondsTest {
          assertEquals(true, diamonds.getColor(0, 1)!=null);
      }
      
-     @Test
-     public void replacedWithRightColorWhen3DiamondsDestroyedOnSameRow(){
-         for (int j = 3; j < 6; j++) {
-             diamonds.setColor(2, j, 0);            
-         }
-          for (int j = 3; j < 6; j++) {
-             diamonds.setColor(1, j, 1);            
-         }
-         diamonds.setColor(2, 2, 1);
-         diamonds.setColor(2, 6, 1);
+    @Test
+    public void replacedWithRightColorWhen3DiamondsDestroyedOnSameRow() {
+        for (int j = 3; j < 6; j++) {
+            diamonds.setColor(2, j, 0);
+        }
+        for (int j = 3; j < 6; j++) {
+            diamonds.setColor(1, j, 1);
+        }
+        diamonds.setColor(2, 2, 1);
+        diamonds.setColor(2, 6, 1);
 
-        diamonds.destroyDiamonds(diamonds.countNeighboursWithSameColorOnSameRow(new Coordinate(2,4)));
-        for (int j = 3; j < 6; j++){
+        diamonds.destroyDiamonds(diamonds.countNeighboursWithSameColorOnSameRow(new Coordinate(2, 3)));
+        for (int j = 3; j < 6; j++) {
             assertEquals(Color.red, diamonds.getColor(2, j));
         }
-     }
-                                                                                           
+    }
+                                                                          
 
      @Test
      public void replacedWithRightColorWhen3DiamondsDestroyedOnSameColumn(){
@@ -137,4 +143,3 @@ public class DiamondsTest {
         }
      }
 }
-

@@ -17,7 +17,6 @@ import timanttipeli.Game;
 
 public class DrawArea extends JPanel{
     private Game timanttipeli;
-
     public DrawArea(Game timanttipeli){
         this.timanttipeli = timanttipeli;
         this.setLayout(new GridLayout(10, 10, 0, 0));
@@ -27,9 +26,6 @@ public class DrawArea extends JPanel{
         this.setBackground(Color.black);
     }
     
-    public void update() {
-        this.repaint();
-    }
     @Override
     protected void paintComponent(Graphics gfx){
         super.paintComponent(gfx);
@@ -40,6 +36,7 @@ public class DrawArea extends JPanel{
             for (int j = 0; j < diamondGraph[0].length; j++) {
                  gfx.setColor(diamondGraph[i][j].getColor());
                  gfx.fill3DRect(5+40*j, 5+40*i, 35, 35, true);
+                 
             }
         }
     }

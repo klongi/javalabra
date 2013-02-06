@@ -16,7 +16,7 @@ public class Diamonds {
 
     /**
      * Konstruktorille annetaan parametrina haluttu timanttiruudukon korkeus ja
-     * leveys Konstruktori arpoo ruudukkoon satunnaisen väriset timantit
+     * leveys.
      *
      * @param height
      * @param width
@@ -58,7 +58,14 @@ public class Diamonds {
         }
     }
     
-    private boolean areNextToEachOther(Coordinate c1, Coordinate c2) {
+    /**
+     * Metodi tarkistaa ovat koordinaateissa c1 ja c2 sijaitsevat timantit vierekkäin
+     * 
+     * @param c1
+     * @param c2
+     * @return 
+     */
+    public boolean areNextToEachOther(Coordinate c1, Coordinate c2) {
         if (c1.getRowNumber() == c2.getRowNumber() && (c1.getColumnNumber() == c2.getColumnNumber() - 1 || c1.getColumnNumber() == c2.getColumnNumber() + 1)) {
             return true;
         }
@@ -70,7 +77,7 @@ public class Diamonds {
 
     private void doSwitch(Coordinate c1, Coordinate c2) {
         Diamond tmp = diamondGraph[c1.getRowNumber()][c1.getColumnNumber()];
-        diamondGraph[c1.getRowNumber()][c1.getColumnNumber()] = diamondGraph[c2.getRowNumber()][c2.getColumnNumber()];;
+        diamondGraph[c1.getRowNumber()][c1.getColumnNumber()] = diamondGraph[c2.getRowNumber()][c2.getColumnNumber()];
         diamondGraph[c2.getRowNumber()][c2.getColumnNumber()] = tmp;
     }
 
@@ -85,33 +92,33 @@ public class Diamonds {
         return count;
     }
     /*
-     * checkWHatToDelete on kesken
+     * checkWHatToDelete ei vielä toimi ihan niinkuin pitäisi. Tällä hetkellä tekee poistamisen ensin
+     * alemmalle timantille. Samalla ylemmän tilanne muuttuu, joten sen naapureita ei välttämättä poisteta, tai
+     * saatetaan poistaa ihan mun värisiä jos syntyy sellainen tilanne.
+     * Miten halutaan asian olevan??
      */
     private void checkWhatToDelete(Coordinate c1, Coordinate c2) {
         if (c1.compareTo(c2) < 0) {
-            ArrayList c2NeighboursRow = countNeighboursWithSameColorOnSameRow(c2);
-            ArrayList c2NeighboursColumn = countNeighboursWithSameColorOnSameColumn(c2);
-            if (c2NeighboursRow.size() >= 3 || c2NeighboursColumn.size() >= 3) {
-                if (c2NeighboursRow.size() >= 3) {
-                    destroyDiamonds(c2NeighboursRow);
-                }
-                if (c2NeighboursColumn.size() >= 3) {
-                    destroyDiamonds(c2NeighboursColumn);
-                }
-            }
+            startDeleting(c2);
+            startDeleting(c1);
+        } else {
+            startDeleting(c1);
+            startDeleting(c2);
         }
     }
 
-    /**
-     * Metodi palauttaa parametrina annetuissa koordinaateissa olevan timantin
-     * värin
-     *
-     * @param rownumber
-     * @param columnnumber
-     * @return
-     */
-    public Color getColor(int rownumber, int columnnumber) {
-        return diamondGraph[rownumber][columnnumber].getColor();
+    private void startDeleting(Coordinate c) {
+        
+        ArrayList NeighboursRow = countNeighboursWithSameColorOnSameRow(c);
+        ArrayList NeighboursColumn = countNeighboursWithSameColorOnSameColumn(c);
+        if (NeighboursRow.size() >= 3 || NeighboursColumn.size() >= 3) {
+            if (NeighboursRow.size() >= 3) {
+                destroyDiamonds(NeighboursRow);
+            }
+            if (NeighboursColumn.size() >= 3) {
+                destroyDiamonds(NeighboursColumn);
+            }
+        }
     }
 
     /**
@@ -125,7 +132,8 @@ public class Diamonds {
      * @return
      */
     public boolean isSameColor(int rownumber, int columnnumber, Color color) {
-        if (columnnumber < diamondGraph[0].length && columnnumber >= 0 && rownumber < diamondGraph.length && rownumber >= 0 && diamondGraph[rownumber][columnnumber] != null) {
+        if (columnnumber < diamondGraph[0].length && columnnumber >= 0 
+                && rownumber < diamondGraph.length && rownumber >= 0 && diamondGraph[rownumber][columnnumber] != null) {
             if (diamondGraph[rownumber][columnnumber].getColor() == color) {
                 return true;
             }
@@ -183,7 +191,7 @@ public class Diamonds {
         boolean[] checked = new boolean[diamondGraph[0].length];
         ArrayList<Coordinate> coordinatesOfSameColoredOnSameRow = new ArrayList<Coordinate>();
         Color color = diamondGraph[c.getRowNumber()][c.getColumnNumber()].getColor();
-        foundSameColor(c.getRowNumber(), c.getRowNumber(), c.getColumnNumber(), color, checked, coordinatesOfSameColoredOnSameRow);
+        foundSameColor(c.getRowNumber(), c.getColumnNumber(), c.getColumnNumber(), color, checked, coordinatesOfSameColoredOnSameRow);
 
         return recursiveNeighbourCheckOnSameRow(c.getRowNumber(), c.getColumnNumber(), color, checked, coordinatesOfSameColoredOnSameRow);
     }
@@ -235,6 +243,22 @@ public class Diamonds {
         for (Coordinate coordinate : CoordinateList) {
             destroyDiamond(coordinate.getRowNumber(), coordinate.getColumnNumber());
         }
+    }
+    
+      /**
+     * Metodi palauttaa parametrina annetuissa koordinaateissa olevan timantin
+     * värin
+     *
+     * @param rownumber
+     * @param columnnumber
+     * @return
+     */
+    public Color getColor(Coordinate c) {
+        return diamondGraph[c.getRowNumber()][c.getColumnNumber()].getColor();
+    }
+    
+    public Color getColor(int rownumber, int columnnumber) {
+        return diamondGraph[rownumber][columnnumber].getColor();
     }
 
     public void setColor(int rownumber, int columnnumber, int color) {
