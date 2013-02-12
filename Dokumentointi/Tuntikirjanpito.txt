@@ -8,3 +8,6 @@ Ma 28.01.2013	7h	Luokkarakenteen uusiminen, Timerin käyttöönotto, uusia metodeit
 Ti 29.01.2013	5h	Luokkakaavio, testejä, klikkaus poistaa nyt klikatun timantit
 Ma 04.02.2013	2h	Kun klikataan kahta vierekkäistä timanttia, ne vaihtavat paikkaa
 Ti 05.02.2013	5h	Sekvenssikaavioita, koodin editointia, testejä
+Su 10.02.2013	5h	Koodikatselmoinnin tekeminen, omien kommenttien tutkiminen. Pientä muokkausta
+Ma 11.02.2013	4h	Logiikan toteuttamisen pohtimista, menun toteutuksen aloittelemista
+Ti 12.02.2013	5h	Menun toteuttelua, testien pohtimista, sekvenssikaavio

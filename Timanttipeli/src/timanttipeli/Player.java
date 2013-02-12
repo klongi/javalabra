@@ -26,6 +26,10 @@ public class Player {
         return this.points;
     }
     
+    public String getName() {
+        return this.name;
+    }
+    
     @Override
     public String toString(){
         return name+", "+points+" points";

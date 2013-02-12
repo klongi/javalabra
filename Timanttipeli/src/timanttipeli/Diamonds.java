@@ -32,6 +32,23 @@ public class Diamonds {
                 diamondGraph[i][j] = new Diamond(color);
             }
         }
+        removeSets();
+    }
+    
+    private void removeSets(){
+        boolean deleted = false;
+        for (int i = diamondGraph.length-1; i >= 0; i--) {
+            for (int j = diamondGraph[0].length-1; j >= 0; j--) {
+                Coordinate c = new Coordinate(i,j);
+                if (countNeighboursWithSameColorOnSameRow(c).size() >= 3 || countNeighboursWithSameColorOnSameColumn(c).size() >= 3){
+                    startDeleting(c);
+                    deleted = true;
+                }
+            }          
+        }
+        if (deleted) {
+            removeSets();
+        }
     }
 
     /**
@@ -50,7 +67,7 @@ public class Diamonds {
         if (areNextToEachOther(c1, c2)) {
             System.out.println("ovat vierekkäin");
             doSwitch(c1, c2);
-            if (diamondsThatGivePoints(c1, c2) > 0) {
+            if (switchValid(c1,c2)) {
                 checkWhatToDelete(c1, c2);
             } else {
                 doSwitch(c1, c2);
@@ -59,7 +76,7 @@ public class Diamonds {
     }
     
     /**
-     * Metodi tarkistaa ovat koordinaateissa c1 ja c2 sijaitsevat timantit vierekkäin
+     * Metodi tarkistaa ovatko koordinaateissa c1 ja c2 sijaitsevat timantit vierekkäin
      * 
      * @param c1
      * @param c2
@@ -75,21 +92,26 @@ public class Diamonds {
         return false;
     }
 
-    private void doSwitch(Coordinate c1, Coordinate c2) {
+    public void doSwitch(Coordinate c1, Coordinate c2) {
         Diamond tmp = diamondGraph[c1.getRowNumber()][c1.getColumnNumber()];
         diamondGraph[c1.getRowNumber()][c1.getColumnNumber()] = diamondGraph[c2.getRowNumber()][c2.getColumnNumber()];
         diamondGraph[c2.getRowNumber()][c2.getColumnNumber()] = tmp;
     }
+    
+    /*
+     * tarkistaa, syntyyköö vaihdossa tilanne, jossa samaan riviin tai sarakkeeseen tulee 3 saman väristä timanttia.
+     * Tällöin vaihto on sallittu, muuten ei.
+     */
 
-    private int diamondsThatGivePoints(Coordinate c1, Coordinate c2) {
+    public boolean switchValid(Coordinate c1, Coordinate c2) {
         int count = 0;
         if (countNeighboursWithSameColorOnSameRow(c2).size() >= 3 || countNeighboursWithSameColorOnSameColumn(c2).size() >= 3) {
-            count++;
+            return true;
         }
         if (countNeighboursWithSameColorOnSameRow(c1).size() >= 3 || countNeighboursWithSameColorOnSameColumn(c1).size() >= 3) {
-            count++;
+            return true;
         }
-        return count;
+        return false;
     }
     /*
      * checkWHatToDelete ei vielä toimi ihan niinkuin pitäisi. Tällä hetkellä tekee poistamisen ensin
@@ -100,15 +122,14 @@ public class Diamonds {
     private void checkWhatToDelete(Coordinate c1, Coordinate c2) {
         if (c1.compareTo(c2) < 0) {
             startDeleting(c2);
-            startDeleting(c1);
+//            startDeleting(c1);
         } else {
             startDeleting(c1);
-            startDeleting(c2);
+//            startDeleting(c2);
         }
     }
 
-    private void startDeleting(Coordinate c) {
-        
+    public void startDeleting(Coordinate c) {      
         ArrayList NeighboursRow = countNeighboursWithSameColorOnSameRow(c);
         ArrayList NeighboursColumn = countNeighboursWithSameColorOnSameColumn(c);
         if (NeighboursRow.size() >= 3 || NeighboursColumn.size() >= 3) {
@@ -119,6 +140,7 @@ public class Diamonds {
                 destroyDiamonds(NeighboursColumn);
             }
         }
+        removeSets();
     }
 
     /**
@@ -245,7 +267,7 @@ public class Diamonds {
         }
     }
     
-      /**
+     /**
      * Metodi palauttaa parametrina annetuissa koordinaateissa olevan timantin
      * värin
      *

@@ -5,7 +5,9 @@ import kayttoliittyma.DrawArea;
 import kayttoliittyma.Interface;
 
 /**
- *
+ * Game luo pelin ja kontrolloi sitä
+ * 
+ * Luokka luo käyttöliittymän ja Diamonds taulukon.
  * @author Krista
  */
 public class Game extends Timer {
@@ -19,8 +21,9 @@ public class Game extends Timer {
     /**
      * Konstruktori kutsuu yliluokan konstruktoria, sekä luo Diamondsin.
      */
-    public Game() {
+    public Game(String name) {
         super(1000, null);
+        this.player = new Player(name);
         diamonds = new Diamonds(10, 10);
         Interface infa = new Interface(this);
         setDrawarea(infa.getDrawarea());
@@ -48,22 +51,6 @@ public class Game extends Timer {
         }
     }
 
-    public Diamonds getDiamonds() {
-        return diamonds;
-    }
-
-    private void setDrawarea(DrawArea area) {
-        this.area = area;
-    }
-
-    public DrawArea getDrawarea() {
-        return this.area;
-    }
-
-    public void setClicked(boolean clicked) {
-        this.clicked = clicked;
-    }
-
     /**
      * Metodi piirtää kaiken uudestaan, kun on tapahtunut muutoksia.
      */
@@ -78,5 +65,21 @@ public class Game extends Timer {
             }
 
         }
+    }
+
+    public Diamonds getDiamonds() {
+        return diamonds;
+    }
+
+    private void setDrawarea(DrawArea area) {
+        this.area = area;
+    }
+
+    public DrawArea getDrawarea() {
+        return this.area;
+    }
+
+    public void setClicked(boolean clicked) {
+        this.clicked = clicked;
     }
 }

@@ -44,7 +44,7 @@ public class Interface {
     private void createComponents(Container container) {
         this.alusta = new DrawArea(this.game);
         container.add(alusta);
-        this.window.addMouseListener(new Listener(game, window));
+        this.window.addMouseListener(new Listener(game, alusta));
     }
  
  

@@ -50,7 +50,7 @@ public class DiamondTest {
 
     @Test
     public void diamondDoesNotChangeColor() {
-        diamond.setColor(-8);
+        diamond.setColor(5);
         assertEquals(Color.blue, diamond.getColor());
     }
 

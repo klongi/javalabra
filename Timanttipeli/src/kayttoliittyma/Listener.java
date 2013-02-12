@@ -7,6 +7,7 @@ package kayttoliittyma;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import timanttipeli.Coordinate;
 import timanttipeli.Game;
 
@@ -17,17 +18,19 @@ import timanttipeli.Game;
  */
 public class Listener implements MouseListener {
     private Game game;
-    private JFrame window;
+    private JPanel drawarea;
     
-    public Listener(Game game, JFrame window){
+    public Listener(Game game, JPanel drawarea){
         this.game = game;
-        this.window = window;
+        this.drawarea = drawarea;
     }
     
     @Override
     public void mouseClicked(MouseEvent event) {
         int x = (int) event.getX();
         int y = (int) event.getY();
+        System.out.println(x);
+        System.out.println(y);
         game.clicked(new Coordinate((y-30)/41, x/41));
         game.setClicked(true);
     }
