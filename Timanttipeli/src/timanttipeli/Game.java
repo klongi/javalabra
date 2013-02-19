@@ -1,14 +1,8 @@
 package timanttipeli;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+
 import javax.swing.Timer;
 import kayttoliittyma.DrawArea;
-import kayttoliittyma.InfoField;
 import kayttoliittyma.UserInterface;
 import timanttipeli.highscore.Results;
 
@@ -44,14 +38,16 @@ public class Game {
     }
     
     public void newGame(int height, int width) {
+        
         running = true;
         diamonds = new Diamonds(height, width);
-        timeremaining = 20;
+        timeremaining = TIMER_START_VALUE;
         timer.start();
     }
     
     public void endGame() {
         running = false;
+        drawArea.repaint();
         if (timer.isRunning()) {
             timer.stop();
         }
@@ -69,12 +65,14 @@ public class Game {
      * @param coordinate
      */
     public void clicked(Coordinate coordinate) {
-        if (clickedCoordinate == null) {
-            clickedCoordinate = coordinate;
-        } else {
-            diamonds.switchPlaces(clickedCoordinate, coordinate);
-            clickedCoordinate = null;
-            player.addPoints(diamonds.getPointsToBeGiven());
+        if (running) {
+            if (clickedCoordinate == null) {
+                clickedCoordinate = coordinate;
+            } else {
+                diamonds.switchPlaces(clickedCoordinate, coordinate);
+                clickedCoordinate = null;
+                player.addPoints(diamonds.getPointsToBeGiven());
+            }
         }
     }
 

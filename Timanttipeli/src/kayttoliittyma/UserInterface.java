@@ -7,6 +7,7 @@ package kayttoliittyma;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -39,8 +40,6 @@ public class UserInterface implements Runnable {
     @Override
     public void run() {
         window = new JFrame("Diamonds");
-        //window.setPreferredSize(new Dimension(400, 400));
-        //window.setSize(400, 400);
         window.setLayout(new BorderLayout());
         window.setBackground(Color.black);
         window.setResizable(false);
@@ -63,11 +62,11 @@ public class UserInterface implements Runnable {
         JPanel panel = new JPanel(new GridLayout(1, 2));
         JButton newGame = new JButton("Uusi Peli");
         panel.add(newGame);  
-        JButton scores = new JButton("Show Highscores");
-        panel.add(scores);     
-        ButtonListener listener = new ButtonListener(newGame, scores, this, game);
+        JButton end = new JButton("Lopeta Peli");
+        panel.add(end);     
+        ButtonListener listener = new ButtonListener(newGame, end, this, game);
         newGame.addActionListener(listener);
-        scores.addActionListener(listener);       
+        end.addActionListener(listener);       
         return panel;
     }
 

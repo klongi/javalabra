@@ -43,6 +43,8 @@ public class DrawArea extends JPanel{
     private void paintHighScore(Graphics gfx) {
         System.out.println("jshiushyusguysgtf");
         ArrayList<Result> resultList = game.getResults().getResultList();
+        gfx.setColor(Color.BLACK);
+        gfx.fillRect(0, 0, 405, 450);
         gfx.setColor(Color.red);
         gfx.drawString("TIMANTTIPELI", 20, 20);
         gfx.drawString("Highscore list:", 20, 40);
@@ -57,7 +59,8 @@ public class DrawArea extends JPanel{
          return;
         }
         super.paintComponent(gfx);
-        gfx.fillRect(0, 0, 405, 405);
+        gfx.setColor(Color.BLACK);
+        gfx.fillRect(0, 0, 405, 450);
         Diamond[][] diamondGraph = game.getDiamonds().getDiamondArray();
         for(int i = 0; i < diamondGraph.length; i++){
             for (int j = 0; j < diamondGraph[0].length; j++) {

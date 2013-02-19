@@ -26,6 +26,7 @@ public class TimerListener implements ActionListener {
             } else {
                 System.out.println("Time's up!");
                 game.endGame();
+                
             }
         }
 }

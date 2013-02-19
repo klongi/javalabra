@@ -33,6 +33,10 @@ public class Player {
         this.name = name;
     }
     
+    public void resetPoints() {
+        points = 0;
+    }
+    
     @Override
     public String toString(){
         return name+", "+points+" points";

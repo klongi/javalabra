@@ -21,14 +21,14 @@ import timanttipeli.Game;
 public class ButtonListener implements ActionListener {
     private JButton start;
     private JButton finish;
-    private JButton score;
+    private JButton end;
     private UserInterface gui;
     private Game game;
     
     
-    public ButtonListener(JButton start, JButton score, UserInterface gui, Game game){
+    public ButtonListener(JButton start, JButton end, UserInterface gui, Game game){
         this.start = start;
-        this.score = score;
+        this.end = end;
         this.gui = gui;
         this.game = game;
      
@@ -52,12 +52,9 @@ public class ButtonListener implements ActionListener {
             
             //gui.updateSize();
         }
-        if(ae.getSource() == score){
-            System.out.println("Tulokset tulee joskus");
+        if(ae.getSource() == end){
+            game.endGame();
         }
-//        if(ae.getSource() == finish){
-//            System.exit(0);
-//        }
     }
     
     public String askName() {

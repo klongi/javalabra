@@ -30,8 +30,8 @@ public class Listener implements MouseListener {
         int x = (int) event.getX();
         int y = (int) event.getY();
         System.out.println(x/41);
-        System.out.println((y-30)/41);
-        game.clicked(new Coordinate((y-30)/41, x/41));
+        System.out.println((y)/41);
+        game.clicked(new Coordinate((y)/41, x/41));
     }
 
 
