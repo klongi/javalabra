@@ -1,6 +1,7 @@
 package timanttipeli;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -52,15 +53,24 @@ public class DiamondsTest {
         diamonds.switchPlaces(new Coordinate(0,0), new Coordinate(2,2));
         assertEquals(color, diamonds.getColor(0, 0));
     }
+    
     @Test
-    public void twoDiamondsAreNextToEachOther(){
-        assertEquals(true, diamonds.areNextToEachOther(new Coordinate(1,1), new Coordinate(0,1)));
-        assertEquals(true, diamonds.areNextToEachOther(new Coordinate(1,1), new Coordinate(1,0)));
-        assertEquals(true, diamonds.areNextToEachOther(new Coordinate(1,1), new Coordinate(2,1)));
-        assertEquals(true, diamonds.areNextToEachOther(new Coordinate(1,1), new Coordinate(1,2)));
+    public void switchesWhenSwitchValid() {
+        
     }
     @Test
-    public void switchesCorrectly(){
+    public void twoDiamondsAreNextToEachOther(){
+        assertTrue(diamonds.areNextToEachOther(new Coordinate(1,1), new Coordinate(0,1)));
+        assertTrue(diamonds.areNextToEachOther(new Coordinate(1,1), new Coordinate(1,0)));
+        assertTrue(diamonds.areNextToEachOther(new Coordinate(1,1), new Coordinate(2,1)));
+        assertTrue(diamonds.areNextToEachOther(new Coordinate(1,1), new Coordinate(1,2)));
+    } 
+    @Test
+    public void twoDiamondsAreNotNextToEachOther() {
+        assertTrue(!diamonds.areNextToEachOther(new Coordinate(1,1), new Coordinate(2,2)));
+    }   
+    @Test
+    public void doSwitchswitchesCorrectly(){
         Coordinate c1 = new Coordinate(1,1);
         Coordinate c2 = new Coordinate(1,2);
         Color color1 = diamonds.getColor(c1);
@@ -69,7 +79,6 @@ public class DiamondsTest {
         assertEquals(color1, diamonds.getColor(c2));
         assertEquals(color2, diamonds.getColor(c1));
     }
-    
     @Test
     public void switchValidWhenAllSameColor(){
         for (int i = 0; i < 7; i++) {
@@ -83,20 +92,32 @@ public class DiamondsTest {
     public void twoDiamondsAreSameColor(){
         diamonds.setColor(0, 1, 1);
         assertTrue(diamonds.isSameColor(0, 1, Color.red));        
-    }
-    
+    }   
     @Test
     public void switchNotValidWhenNotEnoughNeighbours(){
         diamonds = new Diamonds(2,2);
-        assertEquals(false, diamonds.switchValid(new Coordinate(0,0), new Coordinate(0,1)));
+        assertEquals(false, diamonds.switchValid(new Coordinate(0,0), new Coordinate(0,1)));      
+    }
+    @Test
+    public void lowerDeletedFirst() {
         
     }
-    
     @Test
-    public void twoDiamondsNotNextToEachOther(){
-        assertEquals(false, diamonds.areNextToEachOther(new Coordinate(1,1), new Coordinate(2,2)));
+    public void deletionWorksWhenBothRowAndColumnDeeleted() {
+        
     }
-    
+
+    @Test
+    public void listsCombinedCorrectly() {
+        ArrayList<Coordinate> list1 = new ArrayList();
+        ArrayList<Coordinate> list2 = new ArrayList();
+        list1.add(new Coordinate(1,1));
+        list1.add(new Coordinate(2,2));
+        list2.add(new Coordinate(3,3));
+        list2.add(new Coordinate(1,1));
+        list1 = diamonds.combineLists(list1, list2);
+        assertEquals(3, list1.size());
+    }
     @Test
     public void rightAmountOfNeighboursWhenAllSameColor() {
          for (int i = 0; i < 7; i++) {

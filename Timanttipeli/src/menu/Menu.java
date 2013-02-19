@@ -111,10 +111,10 @@ public class Menu {
         panel.add(score);
         score.setForeground(Color.RED);
         
-        
-        MenuListener kuuntelija = new MenuListener(start, score, player, window);
-        start.addActionListener(kuuntelija);
-        score.addActionListener(kuuntelija);
+//        
+//      //  MenuListener kuuntelija = new MenuListener(start, score, player, window);
+//        start.addActionListener(kuuntelija);
+//        score.addActionListener(kuuntelija);
         
         return panel;
     }

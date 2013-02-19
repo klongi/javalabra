@@ -51,4 +51,15 @@ public class CoordinateTest {
         assertEquals(1, coordinates.get(0).getRowNumber());
         assertEquals(2, coordinates.get(2).getColumnNumber());
     }
+    
+    @Test
+    public void coordinatesAreTheSame() {
+        Coordinate c = new Coordinate(2,2);
+        assertTrue(c.equals(new Coordinate(2,2)));
+    }
+    @Test
+    public void coordinatesAreNotSame() {
+        Coordinate c = new Coordinate(2,2);
+        assertTrue(!c.equals(new Coordinate(2,3)));
+    }
 }

@@ -13,8 +13,7 @@ public class Player {
     private int points;
     private String name;
     
-    public Player(String name){
-        this.name = name;
+    public Player(){
         points = 0;
     }
     
@@ -28,6 +27,10 @@ public class Player {
     
     public String getName() {
         return this.name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
     }
     
     @Override

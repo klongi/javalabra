@@ -1,34 +1,60 @@
 package timanttipeli;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.Timer;
 import kayttoliittyma.DrawArea;
-import kayttoliittyma.Interface;
+import kayttoliittyma.InfoField;
+import kayttoliittyma.UserInterface;
+import timanttipeli.highscore.Results;
 
 /**
- * Game luo pelin ja kontrolloi sitä
+ * Game hallinnoi peliä
  * 
- * Luokka luo käyttöliittymän ja Diamonds taulukon.
+ * Luokka luo pelialustan(diamonds taulukon) ja highscore listan
+ * 
  * @author Krista
  */
-public class Game extends Timer {
+public class Game {
 
+    public static final int TIMER_START_VALUE = 180;
+    
     private Diamonds diamonds;
-    private DrawArea area;
-    private boolean clicked;
+    private DrawArea drawArea;
+    private UserInterface gui;
     private Player player;
     private Coordinate clickedCoordinate;
+    private Timer timer;
+    private int timeremaining;
+    private boolean running;
+    private Results results;
+   
 
     /**
-     * Konstruktori kutsuu yliluokan konstruktoria, sekä luo Diamondsin.
+     * 
      */
-    public Game(String name) {
-        super(1000, null);
-        this.player = new Player(name);
-        diamonds = new Diamonds(10, 10);
-        Interface infa = new Interface(this);
-        setDrawarea(infa.getDrawarea());
-        start();
-        GameLoop();
+    public Game() {
+        player = new Player();
+        timer = new Timer(1000, new TimerListener(this));
+        results = new Results();
+    }
+    
+    public void newGame(int height, int width) {
+        running = true;
+        diamonds = new Diamonds(height, width);
+        timeremaining = 20;
+        timer.start();
+    }
+    
+    public void endGame() {
+        running = false;
+        if (timer.isRunning()) {
+            timer.stop();
+        }
     }
 
     /**
@@ -48,38 +74,39 @@ public class Game extends Timer {
         } else {
             diamonds.switchPlaces(clickedCoordinate, coordinate);
             clickedCoordinate = null;
-        }
-    }
-
-    /**
-     * Metodi piirtää kaiken uudestaan, kun on tapahtunut muutoksia.
-     */
-    private void GameLoop() {
-        while (true) {
-            this.stop();
-            //area.repaint();
-            if (this.clicked) {
-                area.repaint();
-                this.clicked = false;
-                this.start();
-            }
-
+            player.addPoints(diamonds.getPointsToBeGiven());
         }
     }
 
     public Diamonds getDiamonds() {
         return diamonds;
     }
-
-    private void setDrawarea(DrawArea area) {
-        this.area = area;
-    }
-
+    
     public DrawArea getDrawarea() {
-        return this.area;
+        return this.drawArea;
     }
-
-    public void setClicked(boolean clicked) {
-        this.clicked = clicked;
+    
+    public void setDrawArea(DrawArea area) {
+        this.drawArea = area;
+    }
+    
+    public Player getPlayer() {
+        return player;
+    }
+    
+    public int getTimeRemaining() {
+        return timeremaining;
+    }
+    
+    public boolean running() {
+        return running;
+    }
+    
+    public void reduceTimeRemaining() {
+        timeremaining--;
+    }
+    
+    public Results getResults() {
+        return this.results;
     }
 }
