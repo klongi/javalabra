@@ -38,7 +38,7 @@ public class Game {
     }
     
     public void newGame(int height, int width) {
-        
+        player.resetPoints();
         running = true;
         diamonds = new Diamonds(height, width);
         timeremaining = TIMER_START_VALUE;
