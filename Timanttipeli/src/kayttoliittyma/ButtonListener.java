@@ -45,22 +45,27 @@ public class ButtonListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         if(ae.getSource() == start){
-            game.endGame();
+            game.stopPreviousGame();
             game.getPlayer().setName(askName());
-            game.newGame(10,10);
+            System.out.println(gui.getDrawarea());
+            game.newGame(10,10,gui.getDrawarea());
             gui.getDrawarea().repaint();
             
             //gui.updateSize();
         }
         if(ae.getSource() == end){
-            game.endGame();
+            if (game.running()){
+                game.endGame();
+            } else {
+                System.exit(0);
+            }
         }
     }
     
-    public String askName() {
+    private String askName() {
         String name = JOptionPane.showInputDialog(null, "Nimi: ", "", 1);
         if (name == null || name.isEmpty()) {
-            game.getPlayer().setName("Anonymous");
+            return "Anonymous";
         }
         if (name.length() > 15) {
             JOptionPane.showMessageDialog(null, "Nimi liian pitkä!",

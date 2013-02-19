@@ -27,11 +27,13 @@ public class Listener implements MouseListener {
     
     @Override
     public void mouseClicked(MouseEvent event) {
-        int x = (int) event.getX();
-        int y = (int) event.getY();
-        System.out.println(x/41);
-        System.out.println((y)/41);
-        game.clicked(new Coordinate((y)/41, x/41));
+        if (game.running()) {
+            int x = (int) event.getX();
+            int y = (int) event.getY();
+            System.out.println(x / 41);
+            System.out.println((y) / 41);
+            game.clicked(new Coordinate((y) / 41, x / 41));
+        }
     }
 
 

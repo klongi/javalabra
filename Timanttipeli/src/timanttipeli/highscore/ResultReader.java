@@ -16,11 +16,11 @@ import java.util.Scanner;
  * 
  * @author Krista
  */
-public class FileReader {
+public class ResultReader {
     private Results results;
     private String filePath;
     
-    public FileReader(Results results, String filePath){
+    public ResultReader(Results results, String filePath){
         this.results = results;
         this.filePath = filePath;
     }
@@ -32,10 +32,7 @@ public class FileReader {
                 String line = lukija.nextLine();
                 try {
                     String[] lineList = line.split(":");
-                    System.out.println(lineList[0]);
-                    System.out.println(lineList[1]);
-                    System.out.println(Integer.parseInt(lineList[1]));
-                    results.addToResultList(new Result(lineList[0], Integer.parseInt(lineList[1])));
+                    results.addToResultList(new Result(lineList[0].trim(), Integer.parseInt(lineList[1].trim())));
                 } catch (Exception e) {
                     System.out.println("Lukeminen ei onnistunut");
                 }

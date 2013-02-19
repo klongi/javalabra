@@ -6,6 +6,7 @@ package timanttipeli;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,13 +21,14 @@ public class TimerListener implements ActionListener {
     
         @Override
         public void actionPerformed(ActionEvent e) {
-            game.reduceTimeRemaining();
-            if (game.getTimeRemaining() >= 0) {
-                game.getDrawarea().repaint();
-            } else {
-                System.out.println("Time's up!");
-                game.endGame();
-                
-            }
+        game.reduceTimeRemaining();
+        if (game.getTimeRemaining() >= 0) {
+            game.getDrawarea().repaint();
+        } else {
+            JOptionPane.showMessageDialog(null, "Aika loppui! Pisteesi " + game.getPlayer().getPoints(),
+                    "Peli on päättynyt", JOptionPane.PLAIN_MESSAGE);
+            game.endGame();
+
+        }
         }
 }

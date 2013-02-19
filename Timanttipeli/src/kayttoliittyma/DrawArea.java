@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 import timanttipeli.Diamond;
 import timanttipeli.Game;
@@ -41,7 +43,6 @@ public class DrawArea extends JPanel{
     }
     
     private void paintHighScore(Graphics gfx) {
-        System.out.println("jshiushyusguysgtf");
         ArrayList<Result> resultList = game.getResults().getResultList();
         gfx.setColor(Color.BLACK);
         gfx.fillRect(0, 0, 405, 450);
@@ -64,12 +65,16 @@ public class DrawArea extends JPanel{
         Diamond[][] diamondGraph = game.getDiamonds().getDiamondArray();
         for(int i = 0; i < diamondGraph.length; i++){
             for (int j = 0; j < diamondGraph[0].length; j++) {
-                 gfx.setColor(diamondGraph[i][j].getColor());
-                 gfx.fill3DRect(5+40*j, 5+40*i, 35, 35, true);       
+                gfx.setColor(diamondGraph[i][j].getColor());
+                gfx.fill3DRect(5+40*j, 5+40*i, 35, 35, true);       
             }
         }
         gfx.drawString(game.getPlayer().toString(), 20, 425);
         gfx.drawString("Time: " + game.getTimeRemaining(), 220, 425);
-        
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(DrawArea.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

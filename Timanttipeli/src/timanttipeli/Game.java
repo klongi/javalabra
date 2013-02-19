@@ -4,6 +4,7 @@ package timanttipeli;
 import javax.swing.Timer;
 import kayttoliittyma.DrawArea;
 import kayttoliittyma.UserInterface;
+import timanttipeli.highscore.Result;
 import timanttipeli.highscore.Results;
 
 /**
@@ -37,15 +38,21 @@ public class Game {
         results = new Results();
     }
     
-    public void newGame(int height, int width) {
+    public void newGame(int height, int width, DrawArea draw) {
         player.resetPoints();
         running = true;
-        diamonds = new Diamonds(height, width);
-        timeremaining = TIMER_START_VALUE;
+        diamonds = new Diamonds(height, width, draw);
+        timeremaining = 40; //TIMER_START_VALUE;
         timer.start();
     }
     
     public void endGame() {
+        results.addToResultList(new Result(player.getName(), player.getPoints()));
+        results.writeResults();
+        stopPreviousGame();
+    }
+    
+    public void stopPreviousGame() {
         running = false;
         drawArea.repaint();
         if (timer.isRunning()) {
@@ -106,5 +113,9 @@ public class Game {
     
     public Results getResults() {
         return this.results;
+    }
+    
+    public UserInterface getGui() {
+        return this.gui;
     }
 }

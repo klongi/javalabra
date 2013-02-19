@@ -3,6 +3,9 @@ package timanttipeli;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import kayttoliittyma.DrawArea;
 
 /**
  * Diamonds -luokka sisältää kaksiulotteisen taulukon, jossa timantit ovat.
@@ -15,6 +18,8 @@ public class Diamonds {
 
     private Diamond[][] diamondGraph;
     private int pointsToBeGiven;
+    private Game game;
+    private DrawArea drawArea;
 
     /**
      * Konstruktorille annetaan parametrina haluttu timanttiruudukon korkeus ja
@@ -26,9 +31,11 @@ public class Diamonds {
      * @param height
      * @param width
      */
-    public Diamonds(int height, int width) {
+    public Diamonds(int height, int width, DrawArea drawArea) {
+        this.drawArea = drawArea;
         diamondGraph = new Diamond[height][width];
         initialiseDiamonds(-1);
+        
     }
     
     /*
@@ -306,11 +313,13 @@ public class Diamonds {
      * @param columnNumber
      */
     public void destroyDiamond(int rowNumber, int columnNumber) {
+        diamondGraph[rowNumber][columnNumber].setColor(Color.BLACK);
+       // this.drawArea.repaint();
         while (rowNumber > 0) {
             diamondGraph[rowNumber][columnNumber] = diamondGraph[rowNumber - 1][columnNumber];
             rowNumber--;
-            pointsToBeGiven += 10;
         }
+        pointsToBeGiven += 10;
         diamondGraph[0][columnNumber] = new Diamond(-1);
     }
 
@@ -353,4 +362,5 @@ public class Diamonds {
     public Diamond[][] getDiamondArray() {
         return diamondGraph;
     }
+    
 }

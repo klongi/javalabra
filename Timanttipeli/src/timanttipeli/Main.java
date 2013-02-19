@@ -3,7 +3,6 @@ package timanttipeli;
 
 import javax.swing.SwingUtilities;
 import kayttoliittyma.UserInterface;
-import menu.Menu;
 
 public class Main {
 
@@ -19,7 +18,7 @@ public class Main {
             } catch (InterruptedException ex) {
                 System.out.println("Piirtoalustaa ei ole vielä luotu.");
             }
-        }     
+        }  
         game.setDrawArea(gui.getDrawarea()); 
     }
 }
