@@ -6,9 +6,13 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import timanttipeli.Diamond;
 import timanttipeli.Game;
@@ -68,14 +72,23 @@ public class DrawArea extends JPanel{
         Diamond[][] diamondGraph = game.getDiamonds().getDiamondArray();
         for(int i = 0; i < diamondGraph.length; i++){
             for (int j = 0; j < diamondGraph[0].length; j++) {
-                gfx.setColor(diamondGraph[i][j].getColor());
-                gfx.fill3DRect(5+40*j, 5+40*i, 35, 35, true);       
+                Image img = null;
+                try {
+                    File src = new File("src/kayttoliittyma/"+diamondGraph[i][j].getColor()+".png");
+                    img = ImageIO.read(src);
+                }
+                catch(IOException e) {
+                    System.out.println("kuvaa ei ladattu");
+                }
+                gfx.drawImage(img, 5+40*j, 5+40*i, this);
+                //gfx.setColor(diamondGraph[i][j].getColor());
+                //gfx.fill3DRect(5+40*j, 5+40*i, 35, 35, true);       
             }
         }
         gfx.setColor(Color.orange);
         gfx.setFont(new Font("Arial Black", 1, 15));
         gfx.drawString(game.getPlayer().toString(), 20, 425);
-        gfx.drawString("Time: " + game.getTimeRemaining(), 220, 425);
+        gfx.drawString("Time: " + game.getTimeRemaining(), 310, 425);
         try {
             Thread.sleep(1000);
         } catch (InterruptedException ex) {

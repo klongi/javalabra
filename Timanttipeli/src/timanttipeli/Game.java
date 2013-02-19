@@ -42,7 +42,7 @@ public class Game {
         player.resetPoints();
         running = true;
         diamonds = new Diamonds(height, width);
-        timeremaining = 40; //TIMER_START_VALUE;
+        timeremaining = TIMER_START_VALUE;
         timer.start();
     }
     

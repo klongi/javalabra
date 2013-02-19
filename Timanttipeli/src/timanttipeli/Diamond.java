@@ -13,8 +13,9 @@ public class Diamond{
     /**
      * colors -taulukko sisältää pelissä käytetyt värit
      */
-    private Color[] colors = {Color.blue, Color.red, Color.yellow, Color.green, Color.magenta};
-    private Color color;
+    //private Color[] colors = {Color.blue, Color.red, Color.yellow, Color.green, Color.magenta};
+    private String[] colors = {"amethyst","ruby","diamond","emerald","sapphire"};
+    private String color;
     
     /**
      * Konstruktorille annetaan parametrina väri
@@ -43,11 +44,11 @@ public class Diamond{
         }
     }
     
-    public void setColor(Color color){
+    public void setColor(String color){
         this.color = color;
     }
     
-    public Color getColor(){
+    public String getColor(){
         return this.color;
     }
    

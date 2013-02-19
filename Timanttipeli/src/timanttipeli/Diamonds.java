@@ -211,10 +211,10 @@ public class Diamonds {
      * @param color
      * @return
      */
-    public boolean isSameColor(int rownumber, int columnnumber, Color color) {
+    public boolean isSameColor(int rownumber, int columnnumber, String color) {
         if (columnnumber < diamondGraph[0].length && columnnumber >= 0
                 && rownumber < diamondGraph.length && rownumber >= 0 && diamondGraph[rownumber][columnnumber] != null) {
-            if (diamondGraph[rownumber][columnnumber].getColor() == color) {
+            if (diamondGraph[rownumber][columnnumber].getColor().equals(color)) {
                 return true;
             }
         }
@@ -238,13 +238,13 @@ public class Diamonds {
         boolean[] checked = new boolean[diamondGraph.length];
         checked[c.getRowNumber()] = true;
         ArrayList<Coordinate> coordinatesOfSameColoredOnSameColumn = new ArrayList<Coordinate>();
-        Color color = diamondGraph[c.getRowNumber()][c.getColumnNumber()].getColor();
+        String color = diamondGraph[c.getRowNumber()][c.getColumnNumber()].getColor();
         coordinatesOfSameColoredOnSameColumn.add(c);
 
         return recursiveNeighbourCheckOnSameColumn(c.getRowNumber(), c.getColumnNumber(), color, checked, coordinatesOfSameColoredOnSameColumn);
     }
 
-    private ArrayList recursiveNeighbourCheckOnSameColumn(int rownumber, int columnnumber, Color color, boolean[] checked, ArrayList CoordinatesOfSameColoredOnSameColumn) {
+    private ArrayList recursiveNeighbourCheckOnSameColumn(int rownumber, int columnnumber, String color, boolean[] checked, ArrayList CoordinatesOfSameColoredOnSameColumn) {
         if (isSameColor(rownumber + 1, columnnumber, color) && !checked[rownumber + 1]) {
             addToList(rownumber + 1, columnnumber, rownumber + 1, color, checked, CoordinatesOfSameColoredOnSameColumn);
             recursiveNeighbourCheckOnSameColumn(rownumber + 1, columnnumber, color, checked, CoordinatesOfSameColoredOnSameColumn);
@@ -272,13 +272,13 @@ public class Diamonds {
         boolean[] checked = new boolean[diamondGraph[0].length];
         checked[c.getColumnNumber()] = true;
         ArrayList<Coordinate> coordinatesOfSameColoredOnSameRow = new ArrayList<Coordinate>();
-        Color color = diamondGraph[c.getRowNumber()][c.getColumnNumber()].getColor();
+        String color = diamondGraph[c.getRowNumber()][c.getColumnNumber()].getColor();
         coordinatesOfSameColoredOnSameRow.add(c);
 
         return recursiveNeighbourCheckOnSameRow(c.getRowNumber(), c.getColumnNumber(), color, checked, coordinatesOfSameColoredOnSameRow);
     }
 
-    private ArrayList recursiveNeighbourCheckOnSameRow(int rownumber, int columnnumber, Color color, boolean[] checked, ArrayList CoordinatesOfSameColoredOnSameRow) {
+    private ArrayList recursiveNeighbourCheckOnSameRow(int rownumber, int columnnumber, String color, boolean[] checked, ArrayList CoordinatesOfSameColoredOnSameRow) {
         if (isSameColor(rownumber, columnnumber + 1, color) && !checked[columnnumber + 1]) {
             addToList(rownumber, columnnumber + 1, columnnumber + 1, color, checked, CoordinatesOfSameColoredOnSameRow);
             recursiveNeighbourCheckOnSameRow(rownumber, columnnumber + 1, color, checked, CoordinatesOfSameColoredOnSameRow);
@@ -295,7 +295,7 @@ public class Diamonds {
      * Metodi lisää löydetyn samanvärsien timantin koordinaatin koordinaattilistaa, ja merkitsee koordinaatin tarkistetuksi
      */
 
-    private void addToList(int rownumber, int columnnumber, int checkCoordinate, Color color, boolean[] checked, ArrayList NeighbourCoordinates) {
+    private void addToList(int rownumber, int columnnumber, int checkCoordinate, String color, boolean[] checked, ArrayList NeighbourCoordinates) {
         checked[checkCoordinate] = true;
         NeighbourCoordinates.add(new Coordinate(rownumber, columnnumber));
     }
@@ -311,7 +311,7 @@ public class Diamonds {
      * @param columnNumber
      */
     public void destroyDiamond(int rowNumber, int columnNumber) {
-        diamondGraph[rowNumber][columnNumber].setColor(Color.BLACK);
+        //diamondGraph[rowNumber][columnNumber].setColor(Color.BLACK);
        // this.drawArea.repaint();
         while (rowNumber > 0) {
             diamondGraph[rowNumber][columnNumber] = diamondGraph[rowNumber - 1][columnNumber];
@@ -345,11 +345,11 @@ public class Diamonds {
         return palautettava;
     }
 
-    public Color getColor(Coordinate c) {
+    public String getColor(Coordinate c) {
         return diamondGraph[c.getRowNumber()][c.getColumnNumber()].getColor();
     }
 
-    public Color getColor(int rownumber, int columnnumber) {
+    public String getColor(int rownumber, int columnnumber) {
         return diamondGraph[rownumber][columnnumber].getColor();
     }
 
