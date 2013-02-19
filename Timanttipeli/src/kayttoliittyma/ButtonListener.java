@@ -47,11 +47,8 @@ public class ButtonListener implements ActionListener {
         if(ae.getSource() == start){
             game.stopPreviousGame();
             game.getPlayer().setName(askName());
-            System.out.println(gui.getDrawarea());
-            game.newGame(10,10,gui.getDrawarea());
+            game.newGame(10,10);
             gui.getDrawarea().repaint();
-            
-            //gui.updateSize();
         }
         if(ae.getSource() == end){
             if (game.running()){

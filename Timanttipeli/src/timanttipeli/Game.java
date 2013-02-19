@@ -38,10 +38,10 @@ public class Game {
         results = new Results();
     }
     
-    public void newGame(int height, int width, DrawArea draw) {
+    public void newGame(int height, int width) {
         player.resetPoints();
         running = true;
-        diamonds = new Diamonds(height, width, draw);
+        diamonds = new Diamonds(height, width);
         timeremaining = 40; //TIMER_START_VALUE;
         timer.start();
     }

@@ -19,7 +19,6 @@ public class Diamonds {
     private Diamond[][] diamondGraph;
     private int pointsToBeGiven;
     private Game game;
-    private DrawArea drawArea;
 
     /**
      * Konstruktorille annetaan parametrina haluttu timanttiruudukon korkeus ja
@@ -31,8 +30,7 @@ public class Diamonds {
      * @param height
      * @param width
      */
-    public Diamonds(int height, int width, DrawArea drawArea) {
-        this.drawArea = drawArea;
+    public Diamonds(int height, int width) {
         diamondGraph = new Diamond[height][width];
         initialiseDiamonds(-1);
         

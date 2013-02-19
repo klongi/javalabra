@@ -3,6 +3,7 @@ package kayttoliittyma;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.util.ArrayList;
@@ -46,11 +47,13 @@ public class DrawArea extends JPanel{
         ArrayList<Result> resultList = game.getResults().getResultList();
         gfx.setColor(Color.BLACK);
         gfx.fillRect(0, 0, 405, 450);
-        gfx.setColor(Color.red);
-        gfx.drawString("TIMANTTIPELI", 20, 20);
-        gfx.drawString("Highscore list:", 20, 40);
+        gfx.setColor(Color.orange);
+        gfx.setFont(new Font("Arial Black", 1, 30));
+        gfx.drawString("TIMANTTIPELI", 60, 30);
+        gfx.setFont(new Font("Arial Black", 1, 15));
+        gfx.drawString("Highscore list:", 30, 70);
         for (int i = 0; i < resultList.size(); i++) {
-            gfx.drawString(resultList.get(i).toString(), 20, 40 + (i+1)*20);
+            gfx.drawString(resultList.get(i).toString(), 30, 80 + (i+1)*20);
         }
         
     }
@@ -69,6 +72,8 @@ public class DrawArea extends JPanel{
                 gfx.fill3DRect(5+40*j, 5+40*i, 35, 35, true);       
             }
         }
+        gfx.setColor(Color.orange);
+        gfx.setFont(new Font("Arial Black", 1, 15));
         gfx.drawString(game.getPlayer().toString(), 20, 425);
         gfx.drawString("Time: " + game.getTimeRemaining(), 220, 425);
         try {
